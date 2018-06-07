@@ -20,3 +20,7 @@ Route.get('/', ({ request }) => {
 });
 Route.post('register', 'LoginController.store')
 Route.post('login', 'LoginController.login')
+Route.get('fiche/:id', 'FicheController.view').middleware('auth')
+Route.post('fiche/store', 'FicheController.store').middleware('auth')
+Route.get('fiches/mine', 'FicheController.list').middleware('auth')
+Route.get('fiches/component/:type/:ficheId', 'FicheController.component').middleware('auth')

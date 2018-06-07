@@ -2,14 +2,15 @@
 
 const Schema = use('Schema')
 
-class TokensSchema extends Schema {
+class TokenSchema extends Schema {
   up () {
     this.create('tokens', (table) => {
       table.increments()
       table.boolean('is_revoked')
       table.string('token').unique()
       table.string('type')
-      table.string('user_id')
+      table.string('user_id')      
+      table.string('status')
       table.timestamps()
     })
   }
@@ -19,4 +20,4 @@ class TokensSchema extends Schema {
   }
 }
 
-module.exports = TokensSchema
+module.exports = TokenSchema
