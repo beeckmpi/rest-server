@@ -39,6 +39,8 @@ class LoginController {
     // Deleting the confirmation field since we don't
     // want to save it
     delete data.password_confirmation
+    data.created_at = Date.now()
+    data.active = true
 
     /**
      * Creating a new user into the database.
