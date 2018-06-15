@@ -190,9 +190,9 @@ class FicheController {
     }
 
     async list ({params, response, auth}) {
+        let data = {};
+        const fiches = await Database.select('*').from('fiches').orderBy('id', 'desc');
         
-        const fiches = await Database.select('*').from('fiches').orderBy('id', 'desc')
-
         return fiches
     }
 }
