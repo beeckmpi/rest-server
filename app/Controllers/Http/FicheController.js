@@ -191,25 +191,28 @@ class FicheController {
 
     async componentStore ({request, response, auth}){
         let table = '';
+        let data = []
         switch (request.params.type) {
             case 'beslissing': 
                 table = 'beslissingens';  
-                const data = request.only(["id","aannemer","bodemdeskundige","BotsersBestek","brandweer","civieleBescherming","fast","ficheId","kennisgaveAndere","kennisgaveAndereTekst","kennisgavePolitie","mode","naamAannemer","naamBodemdeskundig","naOproepAannemer","naOproepRegie","naVaststellingAannemer","naVaststellingRegie","politie","redirect","regie","signalisatie","signalisatieAannemer","uurOproepAannemer","uurOproepBodemdeskundige","uurOproepRegie","uurOproepSignalisatie","VVC","VTC","created_at","updated_at"])
+                data = request.only(["id","aannemer","bodemdeskundige","BotsersBestek","brandweer","civieleBescherming","fast","ficheId","kennisgaveAndere","kennisgaveAndereTekst","kennisgavePolitie","mode","naamAannemer","naamBodemdeskundig","naOproepAannemer","naOproepRegie","naVaststellingAannemer","naVaststellingRegie","politie","redirect","regie","signalisatie","signalisatieAannemer","uurOproepAannemer","uurOproepBodemdeskundige","uurOproepRegie","uurOproepSignalisatie","VVC","VTC","created_at","updated_at"])
                 break;
             case 'vaststelling': 
                table = 'vaststellingens';   
+               data = request.only(["id","andereAanwezig","andereAanwezigTekst","andereIncident","andereIncidentTekst","andereOngeval","andereOngevalTekst","bermTalut","betStootb","bijstandBrand","bodemverontreiniging","bodemverontreinigingTekst","boomStruikIncident","boomStruikOngeval","brandweer","civieleBescherming","electrischeInstallatie","fast","federalePolitie","ficheId","kunstwerk","kunstwerkOngeval","ladingverlies","ladingverliesTekst","metStootb","mode","ongeval","opmerkingen","opstuiking","put","redirect","signalisatie","signalisatie2","stormschade","stormschadeTekst","verzakking","vangrail","uurEinde","uurTerplaatse","wateroverlast","wateroverlastTekst","wegdek"])
                break;
             case 'provinciaal': 
                 table = 'provinciaals';                  
                 break;
             case 'tijdstippen': 
                 table = 'tijdstippens';  
+                data = request.only(["regieArbeider","regieToezichter","aantalBotsers","naamDeskundige","afgraving","andere","andereTekst","mode","ontstoppen","opmerkingen","reinigen","totAannemer","totDeskundige","totRegie","totSignalisatie","vanAannemer","vanDeskundige","vanRegie","vanSignalisatie","vaStootbanden","vullenPut"])
                 break;
             case 'bijkomende': 
                 table = 'bijkomendes';  
                 break;
         }
-        const affectedRows = await Database.table('users').where({ ficheId: params.ficheId }).update(data)
+        const affectedRows = await Database.table(table).where({ ficheId: request.params.ficheId }).update(data)
         return affectedRows
     }
 
