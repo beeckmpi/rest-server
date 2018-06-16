@@ -189,6 +189,30 @@ class FicheController {
         
     }
 
+    async componentStore ({request, response, auth}){
+        let table = '';
+        switch (request.params.type) {
+            case 'beslissing': 
+                table = 'beslissingens';  
+                const data = request.only(["id","aannemer","bodemdeskundige","BotsersBestek","brandweer","civieleBescherming","fast","ficheId","kennisgaveAndere","kennisgaveAndereTekst","kennisgavePolitie","mode","naamAannemer","naamBodemdeskundig","naOproepAannemer","naOproepRegie","naVaststellingAannemer","naVaststellingRegie","politie","redirect","regie","signalisatie","signalisatieAannemer","uurOproepAannemer","uurOproepBodemdeskundige","uurOproepRegie","uurOproepSignalisatie","VVC","VTC","created_at","updated_at"])
+                break;
+            case 'vaststelling': 
+               table = 'vaststellingens';   
+               break;
+            case 'provinciaal': 
+                table = 'provinciaals';                  
+                break;
+            case 'tijdstippen': 
+                table = 'tijdstippens';  
+                break;
+            case 'bijkomende': 
+                table = 'bijkomendes';  
+                break;
+        }
+        const affectedRows = await Database.table('users').where({ ficheId: params.ficheId }).update(data)
+        return affectedRows
+    }
+
     async list ({params, response, auth}) {
         let data = {};
         const fiches = await Database.select('*').from('fiches').orderBy('id', 'desc');
