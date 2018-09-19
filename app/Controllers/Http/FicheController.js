@@ -34,6 +34,8 @@ class FicheController {
             case 'bijkomende': 
                 table = 'bijkomendes';  
                 break;
+            case 'bijlages':
+                table = 'bestanden'
         }
         const fiche = await Database.select('*').from(table).where({ ficheId: params.ficheId })
         return fiche
@@ -211,6 +213,8 @@ class FicheController {
             case 'bijkomende': 
                 table = 'bijkomendes';  
                 break;
+            case 'bijlages': 
+                table = "bestanden"
         }
         const affectedRows = await Database.table(table).where({ ficheId: request.params.ficheId }).update(data)
         return affectedRows
